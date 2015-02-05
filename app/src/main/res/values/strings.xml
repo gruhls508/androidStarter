@@ -5,6 +5,6 @@
     <string name="textview">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="hint">A Name.</string>
-    <string name="button">Update yo textView. yo.</string>
+    <string name="button">Update that textView. yo.</string>
 
 </resources>

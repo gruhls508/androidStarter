@@ -2,8 +2,10 @@ package com.webstaurantstore.gruhl.mysecondapp;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener,
+    AdapterView.OnItemClickListener {
     TextView mainTextView;
     Button mainButton;
     EditText mainEditText;
@@ -41,6 +44,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         mNameList);
 
         mainListVew.setAdapter(mArrayAdapter);
+
+        mainListVew.setOnItemClickListener(this);
     }
 
 
@@ -56,6 +61,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
         mainTextView.setText(mainEditText.getText().toString()
                         + " is doing the android shuffle.");
-//        mNameList.add(mainEd)
+        mNameList.add(mainEditText.getText().toString());
+        mArrayAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Log.d("omgwtfbbq android", position + ": " + mNameList.get(position));
     }
 }
