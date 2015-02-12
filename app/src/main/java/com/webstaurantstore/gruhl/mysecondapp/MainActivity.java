@@ -1,9 +1,13 @@
 package com.webstaurantstore.gruhl.mysecondapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +27,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     ListView mainListVew;
     ArrayAdapter mArrayAdapter;
     ArrayList mNameList = new ArrayList();
+    ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +49,33 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         mNameList);
 
         mainListVew.setAdapter(mArrayAdapter);
-
         mainListVew.setOnItemClickListener(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem shareItem = menu.findItem(R.id.menu_item_share);
+        if (shareItem != null) {
+            mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        }
+
+        setShareIntent();
         return true;
+    }
+
+    private void setShareIntent() {
+
+        if (mShareActionProvider != null) {
+
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Android Development");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, mainTextView.getText());
+
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
 
@@ -63,6 +85,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         + " is doing the android shuffle.");
         mNameList.add(mainEditText.getText().toString());
         mArrayAdapter.notifyDataSetChanged();
+        setShareIntent();
     }
 
     @Override
