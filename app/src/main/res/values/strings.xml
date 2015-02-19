@@ -3,6 +3,7 @@
 
     <string name="app_name">Bookmaster General</string>
     <string name="textview">search. for. BOOKS.</string>
+    <string name="activity_details">Book Details</string>
     <string name="action_settings">Settings</string>
     <string name="hint">(title and/or author)</string>
     <string name="button">searchit.</string>

@@ -109,7 +109,20 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) mJSONAdapter.getItem(position);
+        String coverID = jsonObject.optString("cover_i","");
 
+// create an Intent to take you over to a new DetailActivity
+        Intent detailIntent = new Intent(this, DetailActivity.class);
+
+// pack away the data about the cover
+// into your Intent before you head out
+        detailIntent.putExtra("coverID", coverID);
+
+// TODO: add any other data you'd like as Extras
+
+// start the next Activity using your prepared Intent
+        startActivity(detailIntent);
     }
 
     public void displayWelcome() {
